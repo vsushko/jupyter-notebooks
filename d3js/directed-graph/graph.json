@@ -1,0 +1,78 @@
+{
+  "nodes": [
+    {
+      "id": "Myriel",
+      "group": 1
+    },
+    {
+      "id": "Napoleon",
+      "group": 1
+    },
+    {
+      "id": "Count",
+      "group": 1
+    },
+    {
+      "id": "Isabeau",
+      "group": 2
+    },
+    {
+      "id": "Listolier",
+      "group": 3
+    },
+    {
+      "id": "Blacheville",
+      "group": 3
+    },
+    {
+      "id": "Jondrette",
+      "group": 7
+    },
+    {
+      "id": "Mme.Burgon",
+      "group": 7
+    }
+  ],
+  "links": [
+    {
+      "source": "Napoleon",
+      "target": "Myriel",
+      "value": 1
+    },
+    {
+      "source": "Count",
+      "target": "Myriel",
+      "value": 1
+    },
+    {
+      "source": "Myriel",
+      "target": "Isabeau",
+      "value": 1
+    },
+    {
+      "source": "Blacheville",
+      "target": "Listolier",
+      "value": 1
+    },
+    {
+      "source": "Mme.Burgon",
+      "target": "Jondrette",
+      "value": 1
+    },
+    {
+      "source": "Isabeau",
+      "target": "Jondrette",
+      "value": 1
+    },
+    {
+      "source": "Isabeau",
+      "target": "Count",
+      "value": 1
+    },
+    {
+      "source": "Isabeau",
+      "target": "Listolier",
+      "value": 1
+    }
+  ]
+}
