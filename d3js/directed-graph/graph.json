@@ -2,34 +2,42 @@
   "nodes": [
     {
       "id": "Myriel",
+      "label": "Myriel LTD",
       "group": 1
     },
     {
       "id": "Napoleon",
+      "label": "Napoleon LTD",
       "group": 1
     },
     {
       "id": "Count",
+      "label": "Count LTD",
       "group": 1
     },
     {
       "id": "Isabeau",
+      "label": "Isabeau LTD",
       "group": 2
     },
     {
       "id": "Listolier",
+      "label": "Listolier A Gesellschaft mit beschränkter Haftung",
       "group": 3
     },
     {
       "id": "Blacheville",
+      "label": "Blacheville A Gesellschaft mit beschränkter Haftung",
       "group": 3
     },
     {
       "id": "Jondrette",
+      "label": "Jondrette A Gesellschaft mit beschränkter Haftung",
       "group": 7
     },
     {
       "id": "Mme.Burgon",
+      "label": "Mme.Burgon private company limited by shares",
       "group": 7
     }
   ],
@@ -37,41 +45,49 @@
     {
       "source": "Napoleon",
       "target": "Myriel",
+      "type": "FOUNDED",
       "value": 1
     },
     {
       "source": "Count",
       "target": "Myriel",
+      "type": "FOUNDED",
       "value": 1
     },
     {
       "source": "Myriel",
       "target": "Isabeau",
+      "type": "WORKS ON",
       "value": 1
     },
     {
       "source": "Blacheville",
       "target": "Listolier",
+      "type": "WORKS ON",
       "value": 1
     },
     {
       "source": "Mme.Burgon",
       "target": "Jondrette",
+      "type": "FOUNDED",
       "value": 1
     },
     {
       "source": "Isabeau",
       "target": "Jondrette",
+      "type": "WORKS ON",
       "value": 1
     },
     {
       "source": "Isabeau",
       "target": "Count",
+      "type": "FOUNDED",
       "value": 1
     },
     {
       "source": "Isabeau",
       "target": "Listolier",
+      "type": "WORKS ON",
       "value": 1
     }
   ]

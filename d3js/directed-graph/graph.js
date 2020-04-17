@@ -27,7 +27,7 @@ define('graph', ['d3'], function (d3) {
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("x", d3.forceX(width / 2).strength(1))
       .force("y", d3.forceY(height / 2).strength(1))
-      .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; }).distance(50).strength(1))
+      .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; }).distance(100).strength(1))
       .on("tick", ticked);
 
     var adjlist = [];
@@ -44,6 +44,19 @@ define('graph', ['d3'], function (d3) {
     var svg = d3.select(element).append('svg').attr("width", width).attr("height", height);
     var container = svg.append("g");
 
+    svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '-0 -5 10 10')
+      .attr('refX', 13)
+      .attr('refY', 0)
+      .attr('orient', 'auto')
+      .attr('markerWidth', 10)
+      .attr('markerHeight', 10)
+      .append('svg:path')
+      .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+      .attr('fill', '#999')
+      .style('stroke', 'none');
+
     svg.call(d3.zoom()
       .scaleExtent([.1, 4])
       .on("zoom", function () { container.attr("transform", d3.event.transform); })
@@ -54,8 +67,39 @@ define('graph', ['d3'], function (d3) {
       .data(graph.links)
       .enter()
       .append("line")
+      .attr("class", "link")
+      .attr('marker-end', 'url(#arrowhead)')
       .attr("stroke", "#aaa")
       .attr("stroke-width", "1px");
+
+    var paths = container.append("g").attr("class", "paths")
+      .selectAll("path")
+      .data(graph.links)
+      .enter()
+      .append('path')
+      .attr('class', 'edgepath')
+      .attr('fill-opacity', 0)
+      .attr('stroke-opacity', 0)
+      .attr("stroke", "#aaa")
+      .attr('id', function (d, i) { return 'edgepath' + i })
+
+    var texts = container.append("g").attr("class", "texts")
+      .selectAll("text")
+      .data(graph.links)
+      .enter()
+      .append('text')
+      .style("pointer-events", "none")
+      .attr('class', 'edgelabel')
+      .attr('id', function (d, i) { return 'edgelabel' + i })
+      .attr('font-size', 10)
+      .attr('fill', '#aaa');
+
+    texts.append('textPath')
+      .attr('xlink:href', function (d, i) { return '#edgepath' + i })
+      .style("text-anchor", "middle")
+      .style("pointer-events", "none")
+      .attr("startOffset", "50%")
+      .text(function (d) { return d.type });
 
     var node = container.append("g").attr("class", "nodes")
       .selectAll("g")
@@ -63,7 +107,9 @@ define('graph', ['d3'], function (d3) {
       .enter()
       .append("circle")
       .attr("r", 5)
-      .attr("fill", function (d) { return color(d.group); })
+      .attr("fill", function (d) { return color(d.group); });
+
+    node.append("title").text(d => d.label + " - " + d.group);
 
     node.on("mouseover", focus).on("mouseout", unfocus);
 
@@ -112,6 +158,10 @@ define('graph', ['d3'], function (d3) {
         }
       });
       labelNode.call(updateNode);
+
+      paths.attr('d', function (d) {
+        return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+      });
     }
 
     function fixna(x) {
@@ -163,11 +213,12 @@ define('graph', ['d3'], function (d3) {
       d.fy = d3.event.y;
     }
 
-    function dragended(d) {
-      if (!d3.event.active) graphLayout.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
+    // TODO: do not remove this part
+    // function dragended(d) {
+    //   if (!d3.event.active) graphLayout.alphaTarget(0);
+    //   d.fx = null;
+    //   d.fy = null;
+    // }
   }
   return draw;
 });
